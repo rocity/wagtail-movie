@@ -8,6 +8,10 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 
 class CatalogPage(Page):
+    """
+    Catalog Page
+    A page to display all movies
+    """
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
@@ -16,4 +20,17 @@ class CatalogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
         FieldPanel('body'),
+    ]
+
+
+class MoviePage(Page):
+    """
+    A page of a movie's details
+    """
+    name = models.CharField(max_length=250)
+    description = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('name'),
+        FieldPanel('description'),
     ]
