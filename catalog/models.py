@@ -27,10 +27,8 @@ class MoviePage(Page):
     """
     A page of a movie's details
     """
-    name = models.CharField(max_length=250)
     description = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel('name'),
         FieldPanel('description'),
     ]
