@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-4">
             {% for item in page.movie_images.all %}
-                {% image item.image fill-240x320 %}
+                {% image item.image fill-240x320 class='thumbnail' %}
             {% endfor %}
         </div>
         <div class="col-md-8">
@@ -34,4 +34,6 @@
             <h3>Reviews for {{ page.title }}</h3>
         </div>
     </div>
+
+    <a href="{{ page.get_parent.url }}">Return to Catalog</a>
 {% endblock %}
