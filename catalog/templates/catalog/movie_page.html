@@ -4,9 +4,20 @@
 {% block body_class %}template-moviepage{% endblock %}
 
 {% block content %}
-    {% for item in page.movie_images.all %}
-        {% image item.image fill-240x320 %}
-    {% endfor %}
-    <h1>{{ page.title }}</h1>
-    {{ page.description|richtext }}
+    <div class="row">
+        <div class="col-md-4">
+            {% for item in page.movie_images.all %}
+                {% image item.image fill-240x320 %}
+            {% endfor %}
+        </div>
+        <div class="col-md-8">
+            <h1>{{ page.title }}</h1>
+            {{ page.description|richtext }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Reviews for {{ page.title }}</h3>
+        </div>
+    </div>
 {% endblock %}
