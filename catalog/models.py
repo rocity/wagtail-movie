@@ -28,9 +28,17 @@ class CatalogPage(Page):
 
 class MoviePage(Page):
     """
+    Movie Page
     A page of a movie's details
     """
     description = RichTextField(blank=True)
+
+    def main_image(self):
+        movie_item = self.movie_images.first()
+        if movie_item:
+            return movie_item.image
+        else:
+            return None
 
     content_panels = Page.content_panels + [
         FieldPanel('description'),
@@ -39,6 +47,10 @@ class MoviePage(Page):
 
 
 class MoviePageMovieImage(Orderable):
+    """
+    Movie Image Orderable
+    Images for a movie
+    """
     page = ParentalKey(MoviePage, related_name='movie_images')
     image = models.ForeignKey(
         'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'

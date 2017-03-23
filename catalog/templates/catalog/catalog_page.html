@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-catalogpage{% endblock %}
 
@@ -10,8 +10,17 @@
     {{ page.body|richtext }}
 
     {% for movie in page.get_children %}
-        <h2><a href="{% pageurl movie %}">{{ movie.title }}</a></h2>
-        {{ movie.specific.description|richtext }}
+        {% with movie=movie.specific  %}
+            <div class="col-md-3">
+                {% with movie.main_image as main_image %}
+                    {% if main_image %}
+                        {% image main_image fill-160x160 %}
+                    {% endif %}
+                {% endwith %}
+                <h2><a href="{% pageurl movie %}">{{ movie.title }}</a></h2>
+                {{ movie.description|richtext }}
+            </div>
+        {% endwith %}
     {% endfor %}
     
 {% endblock %}
