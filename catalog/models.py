@@ -2,9 +2,12 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from wagtail.wagtailcore.models import Page
+from modelcluster.fields import ParentalKey
+
+from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class CatalogPage(Page):
@@ -31,4 +34,16 @@ class MoviePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('description'),
+        InlinePanel('movie_images', label='Movie Images')
+    ]
+
+
+class MoviePageMovieImage(Orderable):
+    page = ParentalKey(MoviePage, related_name='movie_images')
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
+
+    panels = [
+        ImageChooserPanel('image'),
     ]
