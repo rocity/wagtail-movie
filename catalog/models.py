@@ -67,6 +67,23 @@ class MoviePageMovieImage(Orderable):
     ]
 
 
+class MovieGenreIndexPage(Page):
+
+    def get_context(self, request):
+
+        # Filter by genre
+        genre = request.GET.get('genre')
+        moviepages = MoviePage.objects.filter(genres__name__iexact=genre)
+
+        # Take the original context from the parent class' get_context method
+        context = super(MovieGenreIndexPage, self).get_context(request)
+
+        # then put it your own movie pages! hax.
+        context['moviepages'] = moviepages
+        return context
+
+
+
 @register_snippet
 class MovieGenre(models.Model):
     name = models.CharField(max_length=255)

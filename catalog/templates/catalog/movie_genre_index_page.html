@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    
+    {% if request.GET.genre|length %}
+        <h4>Showing movies with the genre "{{ request.GET.genre }}"</h4>
+    {% endif %}
+
+    {% for moviepage in moviepages %}
+        <p>
+            <strong><a href="{% pageurl moviepage %}">{{ moviepage.title }}</a></strong>
+            {% with moviepage.main_image as main_image %}
+                {% if main_image %}
+                    {% image main_image fill-160x160 class='thumbnail' %}
+                {% endif %}
+            {% endwith %}
+        </p>
+    {% endfor %}
+
+{% endblock %}
