@@ -22,7 +22,9 @@
                     <h3>Genres</h3>
                     <ul class="list-inline">
                         {% for genre in genres %}
-                            {% image genre.icon fill-32x32 title=genre.name %}
+                            <a href="{% slugurl 'genres' %}?genre={{ genre.name }}">
+                                {% image genre.icon fill-32x32 title=genre.name %}
+                            </a>
                         {% endfor %}
                     </ul>
                 </div>
